@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
 import 'package:core_event/ui/widgets/appbar.dart';
-//import 'package:core_event/ui/pages/content/user_feeds/event_screen.dart';
 import 'package:core_event/ui/pages/content/user_feeds/states_screen.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -17,7 +16,11 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   int _selectedTab = 0;
-  static List<Widget> _widgets = <Widget>[StatesScreen(), StatesScreen()];
+  static final List<Widget> _widgets = <Widget>[
+    const StatesScreen(),
+    const StatesScreen()
+  ];
+
   _logout() {
     try {
       Get.offNamed('/');
@@ -37,7 +40,14 @@ class _FeedScreenState extends State<FeedScreen> {
           onSignOff: () {
             _logout();
           }),
-      body: _widgets.elementAt(_selectedTab),
+//      body: _widgets.elementAt(_selectedTab),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          child: _widgets.elementAt(_selectedTab),
+        ),
+      ),
       bottomNavigationBar: CupertinoTabBar(
         onTap: (index) {
           setState(() {
@@ -47,7 +57,8 @@ class _FeedScreenState extends State<FeedScreen> {
         activeColor: Colors.deepPurple,
         currentIndex: _selectedTab,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Estados"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.feed_rounded), label: "Estados"),
           BottomNavigationBarItem(
               icon: Icon(Icons.local_activity), label: "Eventos"),
           BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: "Chat"),
