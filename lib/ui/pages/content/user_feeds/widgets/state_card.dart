@@ -42,7 +42,7 @@ class StateCard extends StatelessWidget {
 
       topRightWidget: IconButton(
         icon: Icon(
-          Icons.chat_outlined,
+          Icons.delete,
           color: primaryColor,
         ),
         onPressed: onChat,

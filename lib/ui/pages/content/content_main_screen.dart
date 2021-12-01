@@ -17,7 +17,7 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   int _selectedTab = 0;
-  static List<Widget> _widgets = <Widget>[StatesScreen(), StatesScreen()];
+  static List<Widget> _widgets = <Widget>[StatesScreen(), StatesScreen(), StatesScreen(), StatesScreen(), StatesScreen()];
   _logout() {
     try {
       Get.offNamed('/');
@@ -53,7 +53,7 @@ class _FeedScreenState extends State<FeedScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: "Chat"),
           BottomNavigationBarItem(
               icon: Icon(Icons.location_on), label: "Ubicación"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Personal"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Ajustes"),
         ],
       ),
     );
