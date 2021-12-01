@@ -3,12 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
 import 'package:core_event/ui/widgets/appbar.dart';
-//import 'package:app/Constants/Constants.dart';
-//import 'package:app/Screens/CreateTweetScreen.dart';
-//import 'package:app/Screens/HomeScreen.dart';
-//import 'package:app/Screens/NotificationsScreen.dart';
-//import 'package:app/Screens/ProfileScreen.dart';
-//import 'package:app/Screens/SearchScreen.dart';
+//import 'package:core_event/ui/pages/content/user_feeds/event_screen.dart';
+import 'package:core_event/ui/pages/content/user_feeds/states_screen.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key, required this.title, required this.currentUserId})
@@ -21,7 +17,7 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   int _selectedTab = 0;
-
+  static List<Widget> _widgets = <Widget>[StatesScreen(), StatesScreen()];
   _logout() {
     try {
       Get.offNamed('/');
@@ -41,17 +37,7 @@ class _FeedScreenState extends State<FeedScreen> {
           onSignOff: () {
             _logout();
           }),
-      //body: _widgets.elementAt(_selectIndex),
-      body: const SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-          child: AnimatedSwitcher(
-            duration: Duration(milliseconds: 500),
-            // Aqui es donde se enlazan con los otros widgets
-            //child: [].elementAt(_selectedTab),
-          ),
-        ),
-      ),
+      body: _widgets.elementAt(_selectedTab),
       bottomNavigationBar: CupertinoTabBar(
         onTap: (index) {
           setState(() {
@@ -61,11 +47,13 @@ class _FeedScreenState extends State<FeedScreen> {
         activeColor: Colors.deepPurple,
         currentIndex: _selectedTab,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home)),
-          BottomNavigationBarItem(icon: Icon(Icons.search)),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications)),
-          BottomNavigationBarItem(icon: Icon(Icons.person)),
-          BottomNavigationBarItem(icon: Icon(Icons.logout_rounded)),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Estados"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.local_activity), label: "Eventos"),
+          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: "Chat"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.location_on), label: "Ubicación"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Personal"),
         ],
       ),
     );
