@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:core_event/ui/pages/main.dart';
-import 'package:core_event/ui/pages/autentication/usr_login.dart';
-import 'package:core_event/ui/pages/autentication/usr_register.dart';
+import 'package:get/get.dart';
+import 'package:core_event/ui/theme/theme.dart';
+import 'package:core_event/ui/pages/content_start.dart';
+import 'package:core_event/ui/pages/authentication/usr_login.dart';
+import 'package:core_event/ui/pages/authentication/usr_register.dart';
 import 'package:core_event/ui/widgets/flex_exp.dart';
-import 'package:core_event/ui/pages/content/feed_screen.dart';
+import 'package:core_event/ui/pages/content/content_main_screen.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -11,10 +13,15 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Core Event v1.02',
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      title: 'Core Event v1.04',
+      //theme: ThemeData(primarySwatch: Colors.black),
+      theme: MyTheme.ligthTheme,
+      // Establecemos el tema oscuro
+      darkTheme: MyTheme.darkTheme,
+      // Por defecto tomara la seleccion del sistema
+      themeMode: ThemeMode.system,
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
@@ -25,7 +32,7 @@ class App extends StatelessWidget {
               title: 'Login',
             ),
         '/usr_register': (context) => const RegisterWidget(
-              title: 'Register',
+              title: 'Registro',
             ),
         '/feed_screen': (context) => const FeedScreen(
               title: 'Feeds',
