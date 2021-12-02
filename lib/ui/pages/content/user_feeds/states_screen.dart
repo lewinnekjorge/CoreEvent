@@ -1,4 +1,7 @@
+import 'package:core_event/domain/controllers/newstatus.dart';
+import 'package:core_event/ui/pages/content/user_feeds/widgets/newcard.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'widgets/state_card.dart';
 
 class StatesScreen extends StatefulWidget {
@@ -9,6 +12,7 @@ class StatesScreen extends StatefulWidget {
 }
 
 class _State extends State<StatesScreen> {
+  //controladro controller = new controller
   //final items = List<String>.generate(8, (i) => "Item $i");
   // try {
   //   print(items);
@@ -22,67 +26,35 @@ class _State extends State<StatesScreen> {
   final items = [];
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return StateCard(
-              title: 'Prueba',
-              content: 'Lorem ipsum dolor sit amet.',
-              picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
-              onChat: () => {},
-            );
-          },
-        ),
+    return GetX<StatusController>(builder: (statuscontrolador){
+      return Stack(
+        children: [
+          ListView.builder(
+            itemCount: statuscontrolador.liststados.length,
+            itemBuilder: (context, index) {
+              return StateCard(
+                index: index,
+                title: statuscontrolador.liststados[index].title,//'Prueba',
+                content: statuscontrolador.liststados[index].message,//'Lorem ipsum dolor sit amet.',
+                picUrl: statuscontrolador.liststados[index].picUrl,//'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
+                onChat: () => {},
+              );
+            },
+          ),
         Positioned(
             right: 20,
             bottom: 30,
             child: FloatingActionButton(
               onPressed: () {
-                setState(() {
-                  (items.add('1'));
-                });
+                Get.dialog(
+                  PublishDialog()
+                );
               },
               child: const Icon(Icons.add),
             ))
       ],
     );
-    // return ListView.builder(
-    //   itemCount: items.length,
-    //   itemBuilder: (context, index) {
-    //     return StateCard(
-    //       title: 'Prueba',
-    //       content: 'Lorem ipsum dolor sit amet.',
-    //       picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
-    //       onChat: () => {},
-    //     );
-    //   },
-    // );
+    });
+    
   }
 }
-// Future<void> addcard(BuildContext context) async {
-//     getName(context).then((value) {
-//       _State.addEntry(value);
-//       });
-//     }
-
-// Future<String> getName(BuildContext context) async {
-//     String? result = await prompt(
-//       context,
-//       title: Text('Adding a baby'),
-//       initialValue: '',
-//       textOK: Text('Ok'),
-//       textCancel: Text('Cancel'),
-//       hintText: 'Baby name',
-//       minLines: 1,
-//       autoFocus: true,
-//       obscureText: false,
-//       textCapitalization: TextCapitalization.words,
-//     );
-//     if (result != null) {
-//       return Future.value(result);
-//     }
-//     return Future.error('cancel');
-//   }
-// }
