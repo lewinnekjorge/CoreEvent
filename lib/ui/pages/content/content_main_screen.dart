@@ -24,8 +24,8 @@ class _FeedScreenState extends State<FeedScreen> {
   static final List<Widget> _widgets = <Widget>[
     const StatesScreen(),
     const PublicEventsScreen(),
-    const LocationScreen(),
     const StatesScreen(),
+    const LocationScreen(),
     const ConfScreen(),
   ];
 
