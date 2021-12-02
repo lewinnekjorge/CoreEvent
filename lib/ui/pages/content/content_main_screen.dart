@@ -4,6 +4,8 @@ import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
 import 'package:core_event/ui/widgets/appbar.dart';
 import 'package:core_event/ui/pages/content/user_feeds/states_screen.dart';
+import 'package:core_event/ui/pages/content/public_feeds/public_events_screen.dart';
+import 'package:core_event/ui/pages/content/location/location_screen.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key, required this.title, required this.currentUserId})
@@ -18,7 +20,8 @@ class _FeedScreenState extends State<FeedScreen> {
   int _selectedTab = 0;
   static final List<Widget> _widgets = <Widget>[
     const StatesScreen(),
-    const StatesScreen()
+    const PublicEventsScreen(),
+    const LocationScreen(),
   ];
 
   _logout() {
