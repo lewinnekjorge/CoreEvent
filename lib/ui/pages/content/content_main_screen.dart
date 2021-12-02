@@ -1,3 +1,4 @@
+import 'package:core_event/ui/pages/content/configuration/conf_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -19,11 +20,15 @@ class FeedScreen extends StatefulWidget {
 class _FeedScreenState extends State<FeedScreen> {
   int _selectedTab = 0;
 
+
   static final List<Widget> _widgets = <Widget>[
     const StatesScreen(),
     const PublicEventsScreen(),
     const LocationScreen(),
+    const StatesScreen(),
+    const ConfScreen(),
   ];
+
   _logout() {
     try {
       Get.offNamed('/');
