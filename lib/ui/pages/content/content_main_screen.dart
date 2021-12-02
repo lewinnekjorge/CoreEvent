@@ -4,7 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:get/get.dart';
 import 'package:core_event/ui/widgets/appbar.dart';
 import 'package:core_event/ui/pages/content/user_feeds/states_screen.dart';
-import 'package:core_event/ui/pages/content/public_feeds/public_events_screen.dart';
+import 'package:core_event/ui/pages/content/public_events/public_events_screen.dart';
 import 'package:core_event/ui/pages/content/location/location_screen.dart';
 
 class FeedScreen extends StatefulWidget {
