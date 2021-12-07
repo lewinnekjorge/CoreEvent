@@ -32,6 +32,7 @@ class _State extends State<StatesScreen> {
               content: 'Lorem ipsum dolor sit amet.',
               picUrl: 'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
               onChat: () => {},
+              index: 0,
             );
           },
         ),

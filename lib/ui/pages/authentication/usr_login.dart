@@ -1,7 +1,8 @@
-// ignore_for_file: dead_code
-// import 'package:core_event/ui/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+//import 'package:core_event/domain/controller/authentication_controller.dart';
+import 'package:core_event/domain/use_cases/controllers/authentication.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key, required this.title}) : super(key: key);
@@ -13,13 +14,35 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  // ignore: unused_field
-  late String _email;
-  // ignore: unused_field
-  late String _password;
   final _formKey = GlobalKey<FormState>();
   final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
+  //AuthenticationController authenticationController = Get.find();
+  final controller = Get.find<AuthController>();
+
+  _login(email, password) async {
+    //print('_login $theEmail $thePassword');
+    try {
+      await controller.manager.signIn(
+        email: email,
+        password: password,
+      );
+      Get.offNamed('/feed_screen');
+      Get.snackbar(
+        "Acceso Permitido",
+        'OK',
+        icon: const Icon(Icons.person, color: Colors.red),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } catch (err) {
+      Get.snackbar(
+        "Login",
+        err.toString(),
+        icon: const Icon(Icons.person, color: Colors.red),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +82,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         labelText: 'Accede con tu email',
                         hintText: 'Accede con tu email',
                       ),
-                      maxLength: 25,
+                      maxLength: 30,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Digite su email";
@@ -91,27 +114,27 @@ class _LoginWidgetState extends State<LoginWidget> {
                       },
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 30,
                     ),
                     Material(
                       elevation: 5,
                       color: Colors.deepPurple,
                       borderRadius: BorderRadius.circular(30),
                       child: MaterialButton(
-                        onPressed: () {
+                        onPressed: () async {
                           bool isValid = true;
                           if (isValid) {
-                            //Navigator.pushNamed(context, '/feed_screen');
                             FocusScope.of(context).requestFocus(FocusNode());
                             final form = _formKey.currentState;
                             form!.save();
                             if (_formKey.currentState!.validate()) {
-                              Get.offNamed('/feed_screen');
+                              await _login(controllerEmail.text,
+                                  controllerPassword.text);
                             }
                           }
                         },
                         minWidth: 320,
-                        height: 60,
+                        height: 30,
                         child: const Text(
                           'Acceder',
                           style: TextStyle(color: Colors.white, fontSize: 20),

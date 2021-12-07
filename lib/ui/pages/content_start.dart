@@ -13,8 +13,6 @@ class _InicioWidgetState extends State<InicioWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        //width: 360,
-        //height: 640,
         decoration: const BoxDecoration(
           color: Color.fromRGBO(255, 255, 255, 1),
         ),

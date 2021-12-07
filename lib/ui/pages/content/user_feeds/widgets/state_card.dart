@@ -1,14 +1,18 @@
-import 'package:core_event/ui/widgets/card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:core_event/domain/controller/newstatus.dart';
+import 'package:core_event/ui/widgets/card.dart';
 
 class StateCard extends StatelessWidget {
   final String title, content, picUrl;
+  final int index;
   final VoidCallback onChat;
 
   // StateCard constructor
   const StateCard(
       {Key? key,
       required this.title,
+      required this.index,
       required this.content,
       required this.picUrl,
       required this.onChat})
@@ -41,12 +45,14 @@ class StateCard extends StatelessWidget {
       // topRightWidget widget as an IconButton
 
       topRightWidget: IconButton(
-        icon: Icon(
-          Icons.chat_outlined,
-          color: primaryColor,
-        ),
-        onPressed: onChat,
-      ),
+          icon: Icon(
+            Icons.delete,
+            color: primaryColor,
+          ),
+          onPressed: () {
+            StatusController statusController = Get.find();
+            statusController.borrarestado(index);
+          }),
     );
   }
 }
