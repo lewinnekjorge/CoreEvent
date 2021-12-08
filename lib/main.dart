@@ -1,8 +1,10 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:core_event/data/services/location.dart';
+import 'package:core_event/domain/models/location.dart';
 import 'package:core_event/domain/use_cases/location_management.dart';
 import 'ui/app.dart';
 import 'ui/pages/content_start.dart';

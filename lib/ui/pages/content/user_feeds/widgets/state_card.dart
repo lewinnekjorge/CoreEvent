@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:core_event/domain/controller/newstatus.dart';
 import 'package:core_event/ui/widgets/card.dart';
 
 class StateCard extends StatelessWidget {
   final String title, content, picUrl;
-  final int index;
-  final VoidCallback onChat;
+  final VoidCallback onDelete;
 
   // StateCard constructor
   const StateCard(
       {Key? key,
       required this.title,
-      required this.index,
       required this.content,
       required this.picUrl,
-      required this.onChat})
+      required this.onDelete})
       : super(key: key);
 
   // We create a Stateless widget that contais an AppCard,
@@ -28,7 +24,7 @@ class StateCard extends StatelessWidget {
       title: title,
       content: Text(
         content,
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.bodyText1,
       ),
       // topLeftWidget widget as an Avatar
       topLeftWidget: SizedBox(
@@ -43,16 +39,13 @@ class StateCard extends StatelessWidget {
         ),
       ),
       // topRightWidget widget as an IconButton
-
       topRightWidget: IconButton(
-          icon: Icon(
-            Icons.delete,
-            color: primaryColor,
-          ),
-          onPressed: () {
-            StatusController statusController = Get.find();
-            statusController.borrarestado(index);
-          }),
+        icon: Icon(
+          Icons.close,
+          color: primaryColor,
+        ),
+        onPressed: onDelete,
+      ),
     );
   }
 }
