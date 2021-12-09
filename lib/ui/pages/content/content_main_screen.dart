@@ -1,3 +1,4 @@
+import 'package:core_event/ui/pages/content/configuration/conf_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -25,6 +26,7 @@ class _FeedScreenState extends State<FeedScreen> {
   final UIController controller = Get.find<UIController>();
   final AuthController authController = Get.find<AuthController>();
 
+
   static final List<Widget> _widgets = <Widget>[
     const StatesScreen(),
     const PublicEventsScreen(),
@@ -32,6 +34,7 @@ class _FeedScreenState extends State<FeedScreen> {
     const LocationScreen(),
     const ConfScreen(),
   ];
+
   _logout() {
     try {
       Get.offNamed('/');
