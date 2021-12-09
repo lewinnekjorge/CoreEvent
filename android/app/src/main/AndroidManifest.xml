@@ -1,8 +1,16 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.core_event">
-   <application
-        android:label="core_event"
-        android:icon="@mipmap/ic_launcher">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.core_event">
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <queries>
+      <!-- If your app opens https URLs -->
+      <intent>
+          <action android:name="android.intent.action.VIEW" />
+          <data android:scheme="https" />
+      </intent>
+  </queries>
+  <application
+        android:label="core_event" android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

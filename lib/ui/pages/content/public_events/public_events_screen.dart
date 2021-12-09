@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'widgets/events_card.dart';
 
 class PublicEventsScreen extends StatefulWidget {
-  // PublicOffersScreen empty constructor
   const PublicEventsScreen({Key? key}) : super(key: key);
 
   @override

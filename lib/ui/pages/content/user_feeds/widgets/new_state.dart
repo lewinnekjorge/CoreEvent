@@ -1,28 +1,29 @@
-import 'package:core_event/domain/controller/newstatus.dart';
-import 'package:core_event/domain/models/user_status.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:core_event/domain/models/user_status.dart';
+import 'package:core_event/domain/use_cases/controllers/authentication.dart';
+import 'package:core_event/domain/use_cases/status_management.dart';
 
 class PublishDialog extends StatefulWidget {
-  //final StatusManager manager;
+  final StatusManager manager;
 
-  const PublishDialog({Key? key}) : super(key: key);
+  const PublishDialog({Key? key, required this.manager}) : super(key: key);
 
   @override
   createState() => _State();
 }
 
 class _State extends State<PublishDialog> {
-  //late AuthController controller;
-  StatusController estadocontrolador = Get.find();
+  late AuthController controller;
   late bool _buttonDisabled;
   late TextEditingController stateController;
-  //dynamic contenido = ''.obs;
+
   @override
   void initState() {
     super.initState();
-    //controller = Get.find<AuthController>();
+    controller = Get.find<AuthController>();
     _buttonDisabled = false;
     stateController = TextEditingController();
   }
@@ -61,17 +62,20 @@ class _State extends State<PublishDialog> {
                     onPressed: _buttonDisabled
                         ? null
                         : () {
-                            estadocontrolador.addstatusmodel(UserStatus(
+                            setState(() {
+                              _buttonDisabled = true;
+                              User user = controller.currentUser!;
+                              UserStatus status = UserStatus(
+                                picUrl: user.photoURL ??
+                                    "https://ui-avatars.com/api/?name=${user.displayName ?? 'User'}",
+                                name: user.displayName!,
+                                email: user.email!,
                                 message: stateController.text,
-                                name: 'Usuario',
-                                picUrl:
-                                    'https://uifaces.co/our-content/donated/gPZwCbdS.jpg',
-                                email: ''));
-                            //   // widget.manager.sendStatus(status).then(
-                            //   //       (value) => Get.back(),
-                            //   //);
-                            // });
-                            Get.back();
+                              );
+                              widget.manager.sendStatus(status).then(
+                                    (value) => Get.back(),
+                                  );
+                            });
                           },
                   ),
                 ),
@@ -81,5 +85,11 @@ class _State extends State<PublishDialog> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    stateController.dispose();
+    super.dispose();
   }
 }

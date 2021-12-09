@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:core_event/domain/use_cases/controllers/ui.dart';
 
 class CustomAppBar extends AppBar {
   final BuildContext context;
+  final bool home;
   final String picUrl;
   final Widget tile;
   final VoidCallback onSignOff;
+  final UIController controller;
 
   // Creating a custom AppBar that extends from Appbar with super();
   CustomAppBar(
       {Key? key,
       required this.context,
+      required this.controller,
       required this.picUrl,
       required this.tile,
-      required this.onSignOff})
+      required this.onSignOff,
+      this.home = true})
       : super(
           key: key,
           centerTitle: true,
@@ -27,15 +32,16 @@ class CustomAppBar extends AppBar {
           title: tile,
           actions: [
             IconButton(
+              key: const Key("themeAction"),
               icon: const Icon(
                 Icons.brightness_4_rounded,
               ),
               onPressed: () {
-                Get.changeThemeMode(
-                    Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                controller.manager.changeTheme(isDarkMode: !Get.isDarkMode);
               },
             ),
             IconButton(
+              key: const Key("logoutAction"),
               icon: const Icon(
                 Icons.logout,
               ),

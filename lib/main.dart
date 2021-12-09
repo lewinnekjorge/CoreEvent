@@ -1,12 +1,40 @@
-import 'package:core_event/ui/pages/content/user_feeds/widgets/newcard.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'domain/controllers/newstatus.dart';
+import 'package:workmanager/workmanager.dart';
+import 'package:core_event/data/services/location.dart';
+import 'package:core_event/domain/models/location.dart';
+import 'package:core_event/domain/use_cases/location_management.dart';
 import 'ui/app.dart';
 import 'ui/pages/content_start.dart';
 
 void main() {
   Get.lazyPut<InicioWidget>(() => const InicioWidget(title: 'main'));
-  Get.put(StatusController());
+  WidgetsFlutterBinding.ensureInitialized();
+  Workmanager().initialize(
+    updatePositionInBackground,
+    isInDebugMode: true,
+  );
   runApp(const App());
+}
+
+void updatePositionInBackground() async {
+  final manager = LocationManager();
+  final service = LocationService();
+  Workmanager().executeTask((task, inputData) async {
+    final position = await manager.getCurrentLocation();
+    final details = await manager.retrieveUserDetails();
+    var location = MyLocation(
+        name: details['name']!,
+        id: details['uid']!,
+        lat: position.latitude,
+        long: position.longitude);
+    await service.fecthData(
+      map: location.toJson,
+    );
+    log("updated location background"); //simpleTask will be emitted here.
+    //print("updated location background"); //simpleTask will be emitted here.
+    return Future.value(true);
+  });
 }

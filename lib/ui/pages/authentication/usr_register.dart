@@ -1,6 +1,7 @@
-// ignore import 'package:core_event/ui/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+//import 'package:core_event/domain/controller/authentication_controller.dart';
+import 'package:core_event/domain/use_cases/controllers/authentication.dart';
 
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({Key? key, required this.title}) : super(key: key);
@@ -22,6 +23,31 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   final controllerName = TextEditingController();
   final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
+  //AuthenticationController authenticationController = Get.find();
+  final controller = Get.find<AuthController>();
+
+  _signup(email, password) async {
+    try {
+      await controller.manager.signIn(
+        email: email,
+        password: password,
+      );
+      Get.offNamed('/feed_screen');
+      Get.snackbar(
+        "Se Registro",
+        'OK',
+        icon: const Icon(Icons.person, color: Colors.red),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } catch (err) {
+      Get.snackbar(
+        "No se Registro",
+        err.toString(),
+        icon: const Icon(Icons.person, color: Colors.red),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +105,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   labelText: 'Email del Usuario',
                   hintText: 'Email',
                 ),
-                maxLength: 25,
+                maxLength: 30,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Digite su email";
@@ -116,7 +142,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 },
               ),
               const SizedBox(
-                height: 40,
+                height: 30,
               ),
               Material(
                 elevation: 5,
@@ -126,17 +152,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   onPressed: () {
                     bool isValid = true;
                     if (isValid) {
-                      //Navigator.pushNamed(context, '/feed_screen');
                       final form = _formKey.currentState;
                       form!.save();
                       FocusScope.of(context).requestFocus(FocusNode());
                       if (_formKey.currentState!.validate()) {
-                        Get.offNamed('/feed_screen');
+                        _signup(controllerEmail.text, controllerPassword.text);
                       }
                     }
                   },
                   minWidth: 320,
-                  height: 60,
+                  height: 30,
                   child: const Text(
                     'Crear Cuenta',
                     style: TextStyle(color: Colors.white, fontSize: 20),

@@ -10,26 +10,18 @@ class ConfScreen extends StatefulWidget {
 class _State extends State<ConfScreen> {
 
   List<Map> availableConfs = [
-    {
-      "name": "Guadar Localmente",
-      "isChecked": false
-    },
-    {
-      "name": "Hacer post de la ubicación",
-      "isChecked": false
-    },
+    {"name": "Guadar Localmente", "isChecked": false},
+    {"name": "Hacer post de la ubicación", "isChecked": false},
     {
       "name": "Recibir notificaciones",
-      "isChecked": false, 
+      "isChecked": false,
     },
-    {
-      "name": "Tema oscuro predeterminado",
-      "isChecked": false
-    },
+    {"name": "Tema oscuro predeterminado", "isChecked": false},
   ];
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ajustes de Usuario'),
@@ -38,13 +30,20 @@ class _State extends State<ConfScreen> {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child:
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text("Escoge tus preferencias", style: TextStyle(fontSize: 24),),
+
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Text(
+              "Escoge tus preferencias",
+              style: TextStyle(fontSize: 24),
+            ),
+
             const SizedBox(height: 10),
             const Divider(),
             const SizedBox(height: 10),
 
-          Column(
+
+            Column(
+
                 // ignore: non_constant_identifier_names
                 children: availableConfs.map((Conf) {
               return CheckboxListTile(
@@ -58,33 +57,40 @@ class _State extends State<ConfScreen> {
             }).toList()),
 
             // ignore: prefer_const_constructors
-            TextFormField(keyboardType: TextInputType.number, validator: (input) {
+            TextFormField(
+              keyboardType: TextInputType.number,
+              validator: (input) {
                 final isDigitsOnly = int.tryParse(input!);
                 return isDigitsOnly == null
                     ? 'Input needs to be digits only'
-                    : null;},
-                  decoration: const InputDecoration(labelText: "Intervalo de actualizaciones", hintText: "Tiempo en minutos"),),
-
-          const Divider(indent: 30, endIndent: 30),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-            ElevatedButton(
-              onPressed: () { },
-              child: const Text('Guardar cambios'),
+                    : null;
+              },
+              decoration: const InputDecoration(
+                  labelText: "Intervalo de actualizaciones",
+                  hintText: "Tiempo en minutos"),
             ),
-            const Divider(indent: 5, endIndent: 5),
-            ElevatedButton(
-              onPressed: () { },
-              child: const Text('Valores predeterminados'),
-            )
-          ],
-          )
 
+            const Divider(indent: 30, endIndent: 30),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Guardar cambios'),
+                ),
+                const Divider(indent: 5, endIndent: 5),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Valores predeterminados'),
+                )
+              ],
+            )
           ]),
         ),
       ),
     );
   }
+
 }
+
